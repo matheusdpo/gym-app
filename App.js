@@ -5,6 +5,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import ForgotPasswd from "./src/screens/ForgotPasswdScreen";
+import Tab3 from "./src/screens/tabs/Tab3";
 
 const Stack = createNativeStackNavigator();
 
