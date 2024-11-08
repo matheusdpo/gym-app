@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     loginButton: {
-        backgroundColor: '#FFA500',
+        backgroundColor: '#175287',
         padding: 20,
         borderRadius: 50,
         flex: 1,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     modalButton: {
-        backgroundColor: '#FFA500',
+        backgroundColor: '#175287',
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 20,

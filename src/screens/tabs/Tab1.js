@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import { Bar as ProgressBar } from 'react-native-progress';
 
 const Ball = ({ number, backgroundColor }) => {
@@ -10,58 +10,63 @@ const Ball = ({ number, backgroundColor }) => {
   );
 };
 
-const Tab1 = () => {
+const Tab1= ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.userName}>Olá, João Marcos</Text>
+      <Text style={styles.userName}>Hello, Cristiano Ronaldo</Text>
+      
+      {/* Linha vermelha abaixo do título */}
+      <View style={styles.redLine} />
 
       <ScrollView>
         <View style={styles.progressSection}>
-          <Text style={styles.sectionTitle}>Meu Treino</Text>
-          <Text style={styles.subTitle}>Progresso</Text>
+          <Text style={styles.sectionTitle}>My Workout</Text>
+          <Text style={styles.subTitle}>Progress</Text>
           <View style={styles.progressRow}>
             <Text style={styles.progressText}>90%</Text>
-            <Text style={styles.progressText}>Dias de treino 23/25</Text>
+            <Text style={styles.progressText}>Workout days 23/25</Text>
           </View>
           <ProgressBar 
             progress={0.90} 
             width={null} 
-            color="#FFA500" 
+            color="#175287" 
             style={styles.progressBar} 
           />
         </View>
 
         <View style={styles.nextWorkoutSection}>
-          <Text style={styles.sectionTitle}>Próximo treino:</Text>
-          <Text style={styles.workoutDetail}>Quarta-Feira: pernas (ou seja, descanso)</Text>
-          <Text style={styles.link}>→ Ver meus treinos</Text>
+          <Text style={styles.sectionTitle}>Next workout:</Text>
+          <Text style={styles.workoutDetail}>Wednesday: Legs</Text>
+          <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('Tab2')}>
+          <Text style={styles.link}>→ See my workouts</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* Seção Sua Rotina */}
+        {/* Your Routine Section */}
         <View style={styles.routineSection}>
-          <Text style={styles.sectionTitle}>Sua rotina</Text>
+          <Text style={styles.sectionTitle}>Your routine</Text>
           <View style={styles.routineDetails}>
             <View style={styles.routineItem}>
               <Ball number={2} backgroundColor="#000" />
-              <Text style={styles.routineText}>Dias de treino consecutivos</Text>
+              <Text style={styles.routineText}>Consecutive workout days</Text>
             </View>
             <View style={styles.routineItem}>
               <Ball number={1} backgroundColor="#000" />
-              <Text style={styles.routineText}>Dias descansando</Text>
+              <Text style={styles.routineText}>Rest days</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.monthSection}>
-        <Text style={styles.sectionTitle}>No último mês</Text>
+          <Text style={styles.sectionTitle}>In the last month</Text>
           <View style={styles.routineDetails}>
             <View style={styles.routineItem}>
-              <Ball number={18} backgroundColor="#FFA500" />
-              <Text style={styles.routineText}>Treinos realizados</Text>
+              <Ball number={18} backgroundColor="#175287" />
+              <Text style={styles.routineText}>Workouts completed</Text>
             </View>
             <View style={styles.routineItem}>
-              <Ball number={4} backgroundColor="#FFA500" />
-              <Text style={styles.routineText}>Dias seguidos treinando</Text>
+              <Ball number={4} backgroundColor="#175287" />
+              <Text style={styles.routineText}>Consecutive workout days</Text>
             </View>
           </View>
         </View>
@@ -80,12 +85,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'left',
-    color: '#000',
-    backgroundColor: '#FFA500',
+    color: '#fff',
+    backgroundColor: '#175287',
     width: '100%',
     paddingVertical: 10,
     paddingTop: 90,
     paddingLeft: 20,
+  },
+  // Estilo para a linha vermelha
+  redLine: {
+    width: '100%',
+    height: 2,
+    backgroundColor: 'red',
   },
   progressSection: {
     marginTop: 40,
@@ -130,7 +141,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   link: {
-    color: '#FFA500',
+    color: '#175287',
     fontSize: 14,
     fontWeight: 'bold',
     marginTop: 5,
@@ -149,8 +160,8 @@ const styles = StyleSheet.create({
   },
   routineItem: {
     alignItems: 'center',
-    flex: 1, // Adicionado para equalizar o espaço
-    justifyContent: 'center', // Centralizando verticalmente
+    flex: 1,
+    justifyContent: 'center',
   },
   ball: {
     width: 40,
@@ -158,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 5, // Espaço entre a bola e o texto
+    marginBottom: 5,
   },
   ballText: {
     color: '#fff',
@@ -181,5 +192,5 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
-
 export default Tab1;
+  

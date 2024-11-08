@@ -12,7 +12,7 @@ const HomeScreen = () => {
   return (
     <Tab.Navigator
     screenOptions={{
-      tabBarActiveTintColor: '#FFA500', // Cor para o ícone/label ativo
+      tabBarActiveTintColor: '#175287', // Cor para o ícone/label ativo
       tabBarInactiveTintColor: '#fff', // Cor para o ícone/label inativo
       tabBarStyle: {
         backgroundColor: '#000',
@@ -37,7 +37,7 @@ const HomeScreen = () => {
         name="Tab2"
         component={Tab2}
         options={{
-          tabBarLabel: 'Train',
+          tabBarLabel: 'Workouts',
           tabBarIcon: ({ color, size }) => (
             <Icon name="dumbbell" color={color} size={size} />
           ),

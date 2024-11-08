@@ -19,10 +19,10 @@ const LoginScreen = ({ navigation }) => {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.loginButton} onPress={() => navigation.navigate('Main')}>
-                    <Text style={styles.buttonText}>Login</Text>
+                    <Text style={styles.buttonTextLogin}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate('Register')}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                    <Text style={styles.buttonTextSignUp}>Sign Up</Text>
                 </TouchableOpacity>
             </View>
 
@@ -82,13 +82,18 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     signupButton: {
-        backgroundColor: '#FFA500',
+        backgroundColor: '#175287',
         padding: 20,
         borderRadius: 50,
         flex: 1,
         marginLeft: 5,
     },
-    buttonText: {
+    buttonTextSignUp: {
+        textAlign: 'center',
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    buttonTextLogin: {
         textAlign: 'center',
         color: '#000',
         fontWeight: 'bold',

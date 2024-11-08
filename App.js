@@ -5,7 +5,7 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import ForgotPasswd from "./src/screens/ForgotPasswdScreen";
-import Tab3 from "./src/screens/tabs/Tab3";
+import Tab2 from "./src/screens/tabs/Tab2";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,10 +28,15 @@ const App = () => {
           component={HomeScreen}
           options={{ headerShown: false }} // Remove o cabeçalho da tela de Home
         />
-
         <Stack.Screen
           name="Forgot"
           component={ForgotPasswd}
+          options={{ headerShown: false }} // Remove o cabeçalho da tela de Forgot Password
+        />
+
+<Stack.Screen
+          name="Tab2"
+          component={Tab2}
           options={{ headerShown: false }} // Remove o cabeçalho da tela de Forgot Password
         />
       </Stack.Navigator>

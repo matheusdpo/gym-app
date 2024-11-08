@@ -1,75 +1,73 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Share } from "react-native";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab3 = ({ navigation }) => {
-  // Simulando a presença do usuário na academia (ex: dias da semana)
-  const [weekProgress, setWeekProgress] = useState([true, false, true, true, false, true, false]); // Ex: [S, T, W, T, F, S, S]
-  const daysOfWeek = ["S", "T", "W", "T", "F", "S", "S"]; // Dias da semana
+  const [weekProgress, setWeekProgress] = useState([true, false, true, true, false, true, false]);
+  const daysOfWeek = ["S", "T", "W", "T", "F", "S", "S"];
 
-  // Função para lidar com o clique em um dia da semana
   const toggleWorkoutDay = (index) => {
     const updatedProgress = [...weekProgress];
-    updatedProgress[index] = !updatedProgress[index]; // Alterna o estado do dia clicado
-    setWeekProgress(updatedProgress); // Atualiza o estado
+    updatedProgress[index] = !updatedProgress[index];
+    setWeekProgress(updatedProgress);
   };
 
-  // Função de navegação para cada item
   const navigateToPage = (page) => {
-    // Substitua por suas páginas de navegação
-    navigation.navigate(page);
+    if (page === "Invite a Friend") {
+      shareInviteMessage();
+    } else {
+      navigation.navigate(page);
+    }
+  };
+
+  const shareInviteMessage = async () => {
+    try {
+      const result = await Share.share({
+        message: "Hey! Join me on this amazing fitness app to track our progress together!",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          console.log("Shared with activity type: ", result.activityType);
+        } else {
+          console.log("Shared successfully");
+        }
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Share dismissed");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error.message);
+    }
   };
 
   return (
     <View style={styles.container}>
-      {/* Foto de fundo (capa) */}
-      <Image
-        source={require("./img/background.jpg")} // Substitua pelo caminho da sua imagem de fundo
-        style={styles.backgroundImage}
-      />
+      <Image source={require("./img/background.jpg")} style={styles.backgroundImage} />
       <View style={styles.overlay} />
 
-      {/* Foto do usuário */}
-      <Image
-        source={require("./img/cr7.jpg")} // Substitua pelo caminho da foto do usuário
-        style={styles.profileImage}
-      />
-
-      {/* Nome do usuário */}
+      <Image source={require("./img/cr7.jpg")} style={styles.profileImage} />
       <Text style={styles.userName}>Cristiano Ronaldo</Text>
-
-      {/* Nome do usuário */}
       <Text style={styles.memberSince}>Member Since: 2024</Text>
 
-      {/* Progresso da semana */}
-      <Text style={styles.progressTitle}>Your Week Progress</Text>
+      {/* Conteúdo rolável */}
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <Text style={styles.progressTitle}>Your Week Progress</Text>
+        <View style={styles.weekContainer}>
+          {weekProgress.map((workedOut, index) => (
+            <TouchableOpacity key={index} onPress={() => toggleWorkoutDay(index)} style={styles.dayCircleContainer}>
+              <View style={[styles.dayCircle, { backgroundColor: workedOut ? "#175287" : "#ccc" }]} />
+              <Text style={styles.dayText}>{daysOfWeek[index]}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      <View style={styles.weekContainer}>
-        {weekProgress.map((workedOut, index) => (
-          <TouchableOpacity key={index} onPress={() => toggleWorkoutDay(index)} style={styles.dayCircleContainer}>
-            <View
-              style={[
-                styles.dayCircle,
-                { backgroundColor: workedOut ? "#FFA500" : "#ccc" }, // Laranja se foi à academia, cinza se não
-              ]}
-            />
-            <Text style={styles.dayText}>{daysOfWeek[index]}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Lista de opções */}
-      <View style={styles.optionsContainer}>
-        {["Account", "Privacy", "Payments", "Invite a Friend"].map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.optionItem}
-            onPress={() => navigateToPage(item)}
-          >
-            <Text style={styles.optionText}>{item}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.optionsContainer}>
+          {["Account", "Privacy", "Payments", "Invite a Friend"].map((item, index) => (
+            <TouchableOpacity key={index} style={styles.optionItem} onPress={() => navigateToPage(item)}>
+              <Text style={styles.optionText}>{item}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -78,16 +76,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#000", // Fundo preto
+    backgroundColor: "#000",
   },
   backgroundImage: {
     position: "absolute",
-    top: 0, // Inicia no topo
-    left: 0, // Inicia na esquerda
-    width: "100%", // Ocupa toda a largura
-    height: "30%", // Ocupa até a metade da altura da tela
-    resizeMode: "cover", // Mantém a proporção da imagem, cobrindo todo o espaço
-    opacity: 0.5, // Ajusta a opacidade da imagem de fundo
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "30%",
+    resizeMode: "cover",
+    opacity: 0.5,
   },
   overlay: {
     position: "absolute",
@@ -95,30 +93,34 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // Um overlay escuro
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   profileImage: {
     width: 100,
     height: 100,
-    borderRadius: 50, // Faz a imagem ser circular
+    borderRadius: 50,
     borderWidth: 3,
-    borderColor: "#FFA500", // Borda laranja
-    position: "absolute", // Posiciona a imagem em relação ao container
-    top: "23.5%", // Centraliza a imagem de perfil entre o topo e o fundo
-    alignSelf: "center", // Centraliza horizontalmente
+    borderColor: "#175287",
+    position: "absolute",
+    top: "23.5%",
+    alignSelf: "center",
   },
   userName: {
     fontSize: 24,
     fontWeight: "bold",
     color: "#FFF",
-    marginTop: "75%", // Espaçamento a partir do topo da imagem de perfil
+    marginTop: "75%",
     marginBottom: 10,
   },
   memberSince: {
     fontSize: 10,
     color: "#FFF",
-    marginTop: "0%", // Espaçamento a partir do topo da imagem de perfil
+    marginTop: "0%",
     marginBottom: "3%",
+  },
+  scrollContent: {
+    alignItems: "center",
+    paddingBottom: 0, // Para dar espaço no final do scroll
   },
   progressTitle: {
     fontSize: 18,
@@ -130,17 +132,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   dayCircleContainer: {
-    alignItems: "center", // Centraliza os itens dentro do container
-    marginHorizontal: 5,
+    alignItems: "center",
+    marginHorizontal: 6,
   },
   dayCircle: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    marginBottom: 5, // Espaçamento entre a bolinha e o dia da semana
+    marginBottom: 5,
   },
   dayText: {
-    color: "#FFF", // Cor do texto dos dias
+    color: "#FFF",
     fontWeight: "bold",
   },
   optionsContainer: {
@@ -148,7 +150,7 @@ const styles = StyleSheet.create({
     width: "85%",
   },
   optionItem: {
-    backgroundColor: "#333", // Cor preta clara
+    backgroundColor: "#333",
     padding: 15,
     borderRadius: 10,
     marginBottom: 10,

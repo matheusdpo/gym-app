@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: "#FFA500",
+    backgroundColor: "#175287",
   },
   radioText: {
     color: "#fff",
@@ -193,13 +193,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   loginButton: {
-    backgroundColor: "#FFA500",
+    backgroundColor: "#175287",
     padding: 20,
     borderRadius: 50,
     alignItems: "center",
   },
   buttonText: {
-    color: "#000",
+    color: "#fff",
     fontWeight: "bold",
   },
   modalContainer: {
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   modalButton: {
-    backgroundColor: "#FFA500",
+    backgroundColor: "#175287",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 100,
